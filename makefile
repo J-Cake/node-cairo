@@ -13,7 +13,7 @@ cairo.node: clean lib.o parser.o
 
 clean:
 	$(if $(BUILD_DIR), rm -rf $(BUILD_DIR)/*)
-# 	mkdir $(BUILD_DIR)
+	mkdir $(BUILD_DIR)
 
 lib.o:
 	g++ -c $(SRC_DIR)/lib.cpp -o $(BUILD_DIR)/lib.o -shared -fPIC $(LIBS) $(INCLUDE)
