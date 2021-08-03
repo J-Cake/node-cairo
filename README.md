@@ -37,3 +37,8 @@ This exposes a number of simple functions.
     - `height: number`: height of the rectangle
     
 * `Text`: Represents intermediate text-drawing tools
+    - `width: number`: width of the text string
+    - `height: number`: height of the text string
+    - `baseline: number`: The height of the baseline (relative to `y`)
+    - `bounds(bounds: Rect)`: recalculates the dimensions of the text string
+    - `paint(bounds: Rect)`: paint the glyphs to the surface
