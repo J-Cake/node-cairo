@@ -71,6 +71,19 @@ Napi::Function textFn(Napi::Env env, Device* dev) {
 
         pango_layout_set_font_description (layout, desc);
 
+        textUtils.Set(Napi::String::New(env, "bounds"), Napi::Function::New(env, [=](const Napi::CallbackInfo &info) {
+            Napi::Env env = info.Env();
+
+            Rect bounds;
+            if (!getRect(info[0], &bounds))
+                Napi::TypeError::New(env, "Expected bounds: Rect").ThrowAsJavaScriptException();
+
+            pango_layout_set_width(layout, bounds.width);
+            pango_layout_set_height(layout, bounds.height);
+
+            pango_cairo_update_layout(dev->ctx, layout);
+        }));
+
         textUtils.Set(Napi::String::New(env, "paint"), Napi::Function::New(env, [=](const Napi::CallbackInfo &info) {
             Napi::Env env = info.Env();
 
@@ -80,6 +93,8 @@ Napi::Function textFn(Napi::Env env, Device* dev) {
 
             pango_layout_set_width(layout, bounds.width);
             pango_layout_set_height(layout, bounds.height);
+
+            pango_cairo_update_layout(dev->ctx, layout);
 
             cairo_move_to(dev->ctx, bounds.x, bounds.y);
             pango_cairo_show_layout (dev->ctx, layout);
