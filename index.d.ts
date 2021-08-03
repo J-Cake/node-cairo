@@ -1,24 +1,24 @@
 declare module 'cairo' {
 
-    declare enum TextAlign {
+    export enum TextAlign {
         Left = 0b001,
         Right = 0b011,
         Centre = 0b100,
     }
 
-    declare enum TextStyle {
+    export enum TextStyle {
         Bold = 0b0001,
         Italic = 0b0010,
     }
 
-    declare interface TextProps {
+    export interface TextProps {
         font: string,
         sizee: number,
         align: TextAlign,
         style: TextStyle
-    };
+    }
 
-    declare interface Text {
+    export interface Text {
         width: number,
         height: number,
         baseline: number,
@@ -26,7 +26,7 @@ declare module 'cairo' {
         paint(bounds: Rect);
     }
 
-    declare interface Drawing {
+    export interface Drawing {
         fill(colour: RGB),
         rect(rect: Rect);
 
@@ -36,7 +36,17 @@ declare module 'cairo' {
         destroy();
     };
 
-    declare interface Device {
+    export type RGB = [r: number, g: number, b: number];
+
+    export type Rect = {
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        radius?: number
+    };
+
+    export interface Device {
         readonly width: number,
         readonly height: number,
 
@@ -47,5 +57,5 @@ declare module 'cairo' {
         close();
     }
 
-    declare function create(dev: Device): Drawing
-};
+    export function create(dev: Device): Drawing
+}
