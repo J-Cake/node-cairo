@@ -59,3 +59,5 @@ declare module 'cairo' {
 
     export function create(dev: Device): Drawing
 }
+
+export namespace cairo {}
