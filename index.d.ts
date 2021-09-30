@@ -13,7 +13,7 @@ declare module 'cairo' {
 
     export interface TextProps {
         font: string,
-        sizee: number,
+        size: number,
         align: TextAlign,
         style: TextStyle
     }
@@ -34,7 +34,7 @@ declare module 'cairo' {
 
         flush();
         destroy();
-    };
+    }
 
     export type RGB = [r: number, g: number, b: number];
 
@@ -59,3 +59,5 @@ declare module 'cairo' {
 
     export function create(dev: Device): Drawing
 }
+
+export namespace cairo {}
