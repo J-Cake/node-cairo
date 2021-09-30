@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include <napi.h>
 
 #include <cairo.h>
@@ -19,6 +21,16 @@ struct Rect {
     double height;
 
     double radius;
+};
+
+struct Coordinate {
+    double x;
+    double y;
+};
+
+struct Size {
+    double width;
+    double height;
 };
 
 struct TextDimens {
@@ -57,6 +69,8 @@ struct Device {
     cairo_t* ctx;
     cairo_surface_t* canvas;
 
+    Device* parent = nullptr;
+
     PangoWeight bold = PANGO_WEIGHT_BOLD;
     PangoStyle italic = PANGO_STYLE_ITALIC;
 
@@ -64,3 +78,12 @@ struct Device {
     Napi::Buffer<unsigned char> buffer;
     void* data;
 };
+
+Napi::Function fillFn(Napi::Env env, Device *dev);
+Napi::Function rectFn(Napi::Env env, Device *dev);
+Napi::Function textFn(Napi::Env env, Device *dev);
+Napi::Function destroryFn(Napi::Env env, Device *ctx);
+Napi::Function flushFn(Napi::Env env, Device *dev);
+Napi::Function layerFn(Napi::Env env, Device *dev);
+Napi::Object populateDevice(Napi::Env env, Device *device);
+static Napi::Object create(const Napi::CallbackInfo &info);

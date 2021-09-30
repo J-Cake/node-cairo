@@ -40,6 +40,36 @@ bool getRect(Napi::Value value, Rect* rect) {
     return true;
 }
 
+bool getCoordinate(Napi::Value value, Coordinate* coords) {
+    if (!value.IsObject())
+        return false;
+
+    Napi::Object rect_obj = value.As<Napi::Object>();
+
+    if (!rect_obj.Has("x") || !rect_obj.Has("y"))
+        return false;
+
+    coords->x = rect_obj.Get("x").As<Napi::Number>().FloatValue();
+    coords->y = rect_obj.Get("y").As<Napi::Number>().FloatValue();
+
+    return true;
+}
+
+bool getSize(Napi::Value value, Size* size) {
+    if (!value.IsObject())
+        return false;
+
+    Napi::Object size_obj = value.As<Napi::Object>();
+
+    if (!size_obj.Has("width") || !size_obj.Has("height"))
+        return false;
+
+    size->width = size_obj.Get("width").As<Napi::Number>().FloatValue();
+    size->width = size_obj.Get("height").As<Napi::Number>().FloatValue();
+
+    return true;
+}
+
 bool getTextProps(Napi::Value value, TextProps* textProps) {
     if (!value.IsObject())
         return false;

@@ -1,7 +1,4 @@
-mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
-mkfile_dir := $(dir $(mkfile_path))
-
-NODE=-I/usr/include/node -I$(mkfile_dir)node_modules/node-addon-api/ -I$(shell node -p "require('node-addon-api').include")
+NODE=-I/usr/include/node -I$(CURDIR)node_modules/node-addon-api/ -I$(shell node -p "require('node-addon-api').include")
 INCLUDE=$(NODE)
 LIBS=$(shell pkg-config --cflags --libs cairo pango pangocairo)
 
@@ -12,8 +9,8 @@ cairo.node: clean lib.o parser.o
 	g++ $(BUILD_DIR)/lib.o $(BUILD_DIR)/parser.o -shared -fPIC -o $(BUILD_DIR)/cairo.node -Wall -Wextra $(LIBS) $(INCLUDE)
 
 clean:
-	$(if $(BUILD_DIR), rm -rf $(BUILD_DIR)/*)
-	mkdir $(BUILD_DIR)
+	rm -rf $(BUILD_DIR)
+	mkdir -p $(BUILD_DIR)
 
 lib.o:
 	g++ -c $(SRC_DIR)/lib.cpp -o $(BUILD_DIR)/lib.o -shared -fPIC $(LIBS) $(INCLUDE)
