@@ -31,8 +31,7 @@ declare module 'cairo' {
         rect(rect: Rect);
 
         text(str: string, props: TextProps): Text;
-
-        flush();
+        
         destroy();
     }
 
@@ -56,8 +55,17 @@ declare module 'cairo' {
 
         close();
     }
+    
+    export type paintfn = (pos?: {x: number, y: number}, clip?: {x: number, y: number, width: number, height: number}) => void;
+    export type layerfn = (size?: {width: number, height: number}) => Drawing & { paint: paintfn, layer: layerfn };
+    
+    export type RootLayer = {
+        flush();
+        layer: layerfn;
+        load(device: Device): Drawing & { paint: paintfn, refresh() };
+    }
 
-    export function create(dev: Device): Drawing
+    export function create(dev: Device): Drawing & RootLayer;
 }
 
 export namespace cairo {}
