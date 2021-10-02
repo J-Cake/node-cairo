@@ -32,6 +32,9 @@ declare module 'cairo' {
 
         text(str: string, props: TextProps): Text;
         
+        width: number,
+        height: number,
+        
         destroy();
     }
 
