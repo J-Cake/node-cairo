@@ -65,7 +65,7 @@ bool getSize(Napi::Value value, Size* size) {
         return false;
 
     size->width = size_obj.Get("width").As<Napi::Number>().FloatValue();
-    size->width = size_obj.Get("height").As<Napi::Number>().FloatValue();
+    size->height = size_obj.Get("height").As<Napi::Number>().FloatValue();
 
     return true;
 }

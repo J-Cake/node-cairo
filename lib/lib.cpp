@@ -217,8 +217,10 @@ Napi::Function layerFn(Napi::Env env, Device *dev) {
 
         Size size{dev->width, dev->height};
 
-        if (info.Length() > 2)
+        if (info.Length() > 1)
             Napi::TypeError::New(env, "Expected Size?: size").ThrowAsJavaScriptException();
+
+        getSize(info[0], &size);
 
         device->width = size.width;
         device->height = size.height;
