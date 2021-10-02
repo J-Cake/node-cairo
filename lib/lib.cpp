@@ -147,9 +147,9 @@ Napi::Function paintLayerFn(Napi::Env env, Device *dev) {
         getRect(info[1], &clip);
 
         if (dev->parent != nullptr) {
-            cairo_set_source_surface(dev->parent->ctx, dev->canvas, clip.x, clip.y); // TODO: Check clipping code
-            cairo_rectangle(dev->parent->ctx, pos.x, pos.y, clip.width, clip.width);
-            cairo_fill(dev->parent->ctx);
+            cairo_set_source_surface (dev->parent->ctx, dev->canvas, pos.x - clip.x, pos.y - clip.y);
+            cairo_rectangle (dev->parent->ctx, pos.x, pos.y, clip.width, clip.height);
+            cairo_fill (dev->parent->ctx);
         }
     });
 }
