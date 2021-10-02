@@ -220,8 +220,8 @@ Napi::Function layerFn(Napi::Env env, Device *dev) {
         if (info.Length() > 2)
             Napi::TypeError::New(env, "Expected Size?: size").ThrowAsJavaScriptException();
 
-        device->width = info[0].ToNumber().Int32Value();
-        device->height = info[1].ToNumber().Int32Value();
+        device->width = size.width;
+        device->height = size.height;
 
         return populateDevice(env, device);
     });
